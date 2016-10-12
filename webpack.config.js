@@ -1,20 +1,20 @@
 /**
  * Created by lijiahao on 16/8/9.
  */
-var webpack           = require('webpack');
-var commonsPlugin     = new webpack.optimize.CommonsChunkPlugin('vendors.js');
-var path              = require('path');
+var webpack = require('webpack');
+var commonsPlugin = new webpack.optimize.CommonsChunkPlugin('vendors.js');
+var path = require('path');
 var HtmlwebpackPlugin = require('html-webpack-plugin');
-var fs                = require('fs');
+var fs = require('fs');
 
 // 定义了一些文件夹的路径
-var ROOT_PATH   = path.resolve(__dirname);
-var APP_PATH    = path.resolve(ROOT_PATH, 'src/fn');
-var BUILD_PATH  = path.resolve(ROOT_PATH, 'build/src/fn');
+var ROOT_PATH = path.resolve(__dirname);
+var APP_PATH = path.resolve(ROOT_PATH, 'src/fn');
+var BUILD_PATH = path.resolve(ROOT_PATH, 'build/src/fn');
 // template 路径
-var TEM_PATH    = path.resolve(ROOT_PATH, 'template');
+var TEM_PATH = path.resolve(ROOT_PATH, 'template');
 
-function templateFileDir(){
+function templateFileDir() {
     return fs.readdirSync(TEM_PATH);
 }
 var htmlFileName = templateFileDir();
@@ -57,7 +57,7 @@ module.exports = {
     },
     //出口口文件输出配置
     output: {
-        publicPath:BUILD_PATH,
+        //publicPath:BUILD_PATH,
         path: BUILD_PATH,
         filename: '[name].js'
     },
@@ -84,7 +84,16 @@ module.exports = {
             {
                 test: /\.(png|jpg)$/,
                 loader: 'url-loader?limit=8192'
+            },
+            {
+                test: /\.jsx?$/,
+                loader: 'babel',
+                include: APP_PATH,
+                query: {
+                    presets: ['es2015']
+                }
             }
+
         ]
     },
     //其它解决方案配置
@@ -92,12 +101,12 @@ module.exports = {
         //查找module的话从这里开始查找
         root: ROOT_PATH, //绝对路径
         //自动扩展文件后缀名，意味着我们require模块可以省略不写后缀名
-        extensions: ['', '.js', '.json', '.scss','css'],
+        extensions: ['', '.js', '.json', '.scss', 'css'],
         //模块别名定义，方便后续直接引用别名，无须多写长长的地址
         alias: {
-            commonFunc : 'src/fn/common.js',//后续直接 require('AppStore') 即可
-            ActionType : 'js/actions/ActionType.js',
-            AppAction : 'js/actions/AppAction.js',
+            commonFunc: 'src/fn/common.js',//后续直接 require('AppStore') 即可
+            ActionType: 'js/actions/ActionType.js',
+            AppAction: 'js/actions/AppAction.js',
             indexCss: './style/index.css',
             zeptoAlertJs: 'src/plugin/zepto.alert.js',
             zeptoAlertCss: 'src/plugin/zepto.alert.css'
@@ -119,13 +128,13 @@ module.exports = {
     devtool: 'eval-source-map'
 };
 
-for(var i = 0 ; i < htmlFileName.length; i ++ ){
+for (var i = 0; i < htmlFileName.length; i++) {
     module.exports.plugins.push(new HtmlwebpackPlugin({
-        title:'Hello World app',
+        title: 'Hello World app',
         filename: htmlFileName[i],
         template: path.resolve(TEM_PATH, htmlFileName[i]),
-        chunks: ['vendors','path'],
+        chunks: ['vendors', 'path'],
         inject: 'body',
-        hash:true
+        hash: true
     }))
 }

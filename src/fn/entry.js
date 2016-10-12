@@ -5,4 +5,6 @@ require('commonFunc');
 require('./index.js');
 require('./ajax-data.js');
 require('./zepto-alert.js');
-require('./template-index.js')
+require('./template-index.js');
+
+import './es6.js'
