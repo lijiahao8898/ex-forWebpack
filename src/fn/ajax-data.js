@@ -13,7 +13,7 @@ var $ = require('jquery');
         ajaxFunc: function () {
             $.ajax({
                 //url:'http://115.29.191.163/auth/get_permission_list',
-                url:'../../../json/index.json',
+                url:'json/index.json',
                 type:'post',
                 dataType:'json',
                 data:{
