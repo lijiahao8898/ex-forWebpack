@@ -1,7 +1,7 @@
 ---
 layout: post
 title: tool - webpack
-categories: [打包工具]
+categories: 打包工具
 ---
 
 ## 基本

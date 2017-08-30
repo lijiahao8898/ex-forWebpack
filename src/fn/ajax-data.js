@@ -13,8 +13,8 @@ var $ = require('jquery');
         ajaxFunc: function () {
             $.ajax({
                 //url:'http://115.29.191.163/auth/get_permission_list',
-                url:'json/index.json',
-                type:'post',
+                url:'../json/index.json',
+                type:'get',
                 dataType:'json',
                 data:{
                     shop_type:1,
@@ -28,9 +28,9 @@ var $ = require('jquery');
                 }
             });
             $.ajax({
-                url:"../../../json/TXT1.json",
+                url:"../json/TXT1.json",
                 dataType:"json",
-                type:"post",
+                type:"get",
                 async:true,
                 success: function(data){
                     console.log(data);
